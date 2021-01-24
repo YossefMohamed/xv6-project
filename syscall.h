@@ -21,3 +21,5 @@
 #define SYS_mkdir  20
 #define SYS_close  21
 #define SYS_settickets 22
+#define SYS_mprotect  23
+#define  SYS_munprotect 24

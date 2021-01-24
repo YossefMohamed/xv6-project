@@ -122,6 +122,8 @@ void            wakeup(void*);
 void            yield(void);
 int             settickets(int);
 int             lottery_Total(void);
+int             mprotect(void);
+int             munprotect(void);
 // swtch.S
 void            swtch(struct context**, struct context*);
 

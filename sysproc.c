@@ -111,5 +111,5 @@ int sys_munprotect((void) {
         int len = 0;
        if(argint(0,&addr)<0 ||argint (1,&len)<0)
                 return -1;
-        return mprotect((void *)addr, len);
+        return munprotect((void *)addr, len);
 }

@@ -7,6 +7,7 @@
 #include "proc.h"
 #include "spinlock.h"
 #include "rand.h"
+#include "pstat.h"
 
 struct {
   struct spinlock lock;
@@ -90,7 +91,7 @@ found:
   p->state = EMBRYO;
   p->pid = nextpid++;
   p->tickets = 1;
-
+  p->ticks = 0;
   release(&ptable.lock);
 
   // Allocate kernel stack.
@@ -368,7 +369,10 @@ scheduler(void)
       switchuvm(p);
       p->state = RUNNING;
 
+      int tempTicks = ticks;
+
       swtch(&(c->scheduler), p->context);
+      p->ticks += ticks - tempTicks;
       switchkvm();
 
       // Process is done running for now.
@@ -569,4 +573,20 @@ int settickets(int n)
   }
   release(&ptable.lock);
   return 25;
+}
+
+int
+getprocessesinfo(struct pstat* ps) {
+  int i = 0;
+  struct proc *p;
+  acquire(&ptable.lock);
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+    ps->pids[i] = p->pid;
+    ps->inuse[i] = p->state != UNUSED;
+    ps->tickets[i] = p->tickets;
+    ps->ticks[i] = p->ticks;
+    i++;
+  }
+  release(&ptable.lock);
+  return 0;
 }

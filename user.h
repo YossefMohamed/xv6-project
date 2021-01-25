@@ -1,6 +1,6 @@
 struct stat;
 struct rtcdate;
-
+struct pstat;
 // system calls
 int fork(void);
 int exit(void) __attribute__((noreturn));
@@ -25,6 +25,8 @@ int sleep(int);
 int uptime(void);
 int mprotect(void);
 int munprotect(void);
+int getprocessesinfo(struct pstat *);
+
 // ulib.c
 int stat(const char*, struct stat*);
 char* strcpy(char*, const char*);

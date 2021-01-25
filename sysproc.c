@@ -7,7 +7,7 @@
 #include "mmu.h"
 #include "proc.h"
 #include "rand.h"
-
+#include "pstat.h"
 int
 sys_fork(void)
 {
@@ -112,4 +112,13 @@ int sys_munprotect((void) {
        if(argint(0,&addr)<0 ||argint (1,&len)<0)
                 return -1;
         return munprotect((void *)addr, len);
+}
+
+int
+sys_getprocessesinfo(void){
+  struct pstat *p;
+    if (argptr(0, (char **)&p, sizeof(struct pstat)) < 0)
+        return -1;
+    getprocessesinfo(p);
+  return 0;
 }

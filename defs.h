@@ -9,6 +9,7 @@ struct spinlock;
 struct sleeplock;
 struct stat;
 struct superblock;
+struct pstat;
 
 // bio.c
 void            binit(void);
@@ -124,6 +125,7 @@ int             settickets(int);
 int             lottery_Total(void);
 int             mprotect(void);
 int             munprotect(void);
+int             getprocessesinfo(struct pstat *);
 // swtch.S
 void            swtch(struct context**, struct context*);
 

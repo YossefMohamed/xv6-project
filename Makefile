@@ -182,7 +182,7 @@ UPROGS=\
 	_usertests\
 	_wc\
 	_ps\
-	_protection_test
+	_protection_test\
 	_zombie\
        _myprogram\
 

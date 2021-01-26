@@ -8,7 +8,7 @@
 #include "spinlock.h"
 #include "rand.h"
 #include "pstat.h"
-
+#define MAX_TICKETS 100
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -564,15 +564,14 @@ procdump(void)
 }
 int settickets(int n) 
 {
-  struct proc *p;
-  //loop over process table looking for process
-  acquire(&ptable.lock);
-  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-  {
-    p->tickets +=n;
-  }
-  release(&ptable.lock);
-  return 25;
+  struct proc *proc;
+  if(n < 1)
+    return -1;
+  proc = myproc();
+  proc->tickets += n;
+   if(proc->tickets > MAX_TICKETS)
+    return -1 ;
+  return 0;
 }
 
 int

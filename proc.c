@@ -581,11 +581,15 @@ getprocessesinfo(struct pstat* ps) {
   struct proc *p;
   acquire(&ptable.lock);
   for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
-    ps->pids[i] = p->pid;
-    ps->inuse[i] = p->state != UNUSED;
-    ps->tickets[i] = p->tickets;
-    ps->ticks[i] = p->ticks;
-    i++;
+    if(p->state != UNUSED)
+    {
+      ps->pids[i] = p->pid;
+      ps->inuse[i] = p->state != UNUSED;
+      ps->tickets[i] = p->tickets;
+      ps->ticks[i] = p->ticks;
+      i++;
+      ps->num_processes ++ ;
+    }
   }
   release(&ptable.lock);
   return 0;

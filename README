@@ -116,6 +116,8 @@ Next, you will implement system call function.
    obtained by running command make qemu on terminal.
    After executing everything successfully, you will get on terminal.output shows in terminal emulator
   Now install the QEMU PC simulator and run "make qemu".
-![protection](screenshots/protectionTest.PNG)
+  
+![protectionTest](https://user-images.githubusercontent.com/76956637/106039767-2d129500-60e2-11eb-9203-046584fc1bdf.PNG)
+
     
     

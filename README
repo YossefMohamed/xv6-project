@@ -115,9 +115,7 @@ Next, you will implement system call function.
    adding user program. At last, run user program in qemu window which can be
    obtained by running command make qemu on terminal.
    After executing everything successfully, you will get on terminal.output shows in terminal emulator
-  Now install the QEMU PC
-simulator and run "make qemu".
-
-    ![protection](screenshots/protection_test.PNG)
+  Now install the QEMU PC simulator and run "make qemu".
+![protection](screenshots/protectionTest.PNG)
     
     

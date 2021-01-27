@@ -8,7 +8,7 @@ main(int argc, char *argv[])
   
   char *start = sbrk(0);
   sbrk(PGSIZE);
-  *start=100;
+  *start=0;
   mprotect(start, 1) ;
   int child=fork();
   if(child==0){

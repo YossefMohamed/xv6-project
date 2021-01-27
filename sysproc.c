@@ -92,10 +92,18 @@ sys_uptime(void)
 }
 int sys_settickets(void)
 { 
- int num = random_at_most(100);
- settickets(num);
-  if(num==0)return -1;
-  else return 0;
+//  int num = random_at_most(100);
+//  settickets(num);
+//   if(num==0)return -1;
+//   else return 0;
+  int n;
+  if(argint(0, &n) < 0) {
+    return -1;
+  }
+  else {
+    settickets(n);
+  }
+  return 0;
 }
 int sys_mprotect((void) {
 

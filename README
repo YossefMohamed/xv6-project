@@ -48,6 +48,7 @@ will need to install a cross-compiler gcc suite capable of producing
 x86 ELF binaries (see https://pdos.csail.mit.edu/6.828/).
 Then run "make TOOLPREFIX=i386-jos-elf-". Now install the QEMU PC
 simulator and run "make qemu".
+ ![discre](screenshots/protection_test.PNG)
 
  -----------------------------
 Adding new system call to xv6 :
@@ -114,6 +115,8 @@ Next, you will implement system call function.
    adding user program. At last, run user program in qemu window which can be
    obtained by running command make qemu on terminal.
    After executing everything successfully, you will get on terminal.output shows in terminal emulator
-   ![discre](screenshots/protection_test.PNG)
-   
-   
+  Now install the QEMU PC
+simulator and run "make qemu".
+    ![discre](screenshots/protection_test.PNG)
+    
+    

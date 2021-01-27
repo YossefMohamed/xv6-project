@@ -33,6 +33,59 @@ Merimovich, Mark Morrissey, mtasm, Joel Nider, Greg Price, Ayan Shafqat,
 Eldar Sehayek, Yongming Shen, Cam Tenny, tyfkda, Rafael Ubal, Warren
 Toomey, Stephen Tu, Pablo Ventura, Xi Wang, Keiichi Watanabe, Nicolas
 Wolovick, wxdao, Grant Wu, Jindong Zhang, Icenowy Zheng, and Zou Chang Wei.
+Adding new system call to xv6 :
+A system call is way for programs to interact with operating system
+ computer program makes system call when it makes request to operating system’s kernel.
+ System calls are used for hardware services, to create or execute process,
+ and for communicating with kernel services,
+ including application and process scheduling.
+ In order to define your own system call in xv6, you need to make changes to 5 files. Namely, these files are as follows.
+ Create system call to return year Unix version 6 was released :
+ You could start working from syscall.h file where number is assigned to every system call in this Xv6 system.
+ As you can see, there are 21 system calls already defined in this file. 
+ Let’s go ahead and add following line to reserver system call number for your own system call.
+ #define SYS_mprotect 22
+ Next, you need to add pointer to system call in syscall.c file.
+ This file contains an array of function pointers which uses above-defined numbers (indexes) as pointers to system calls which are defined in different location
+ In order to add your custom system call, add following line to this file.
+ [SYS_mprotect] sys_mprotect
+ What changes happen here ?
+ This means, when system call occurred with system call number 22,
+ function pointed by function pointer sys_mprotect will be called. 
+ So, you have to implement this function.
+ However, this file is not place you are going to implement it.
+  You will just put function prototype here inside this file.
+So, find suitable place inside this file and add following line
+You can see that all other 21 system call functions are defined similarly.
+The function prototype which needs to be added to syscall.c file is as follows.
+extern int sys_mprotect(void)
+Next, you will implement system call function.
+ In order to do this, open sysproc.c file where system call functions are defined.
+ int sys_mprotect((void) {
+
+    int addr;
+  int  len = 0;
+  if(argint(0,&addr)<0 ||argint (1,&len)<0)
+  return -1;
+   return mprotect((void *)addr, len)
+   }
+   Now you have just two little files to edit and these files will contain interface for your user program to access system call. 
+   Open file called usys.S and add line below at the end.
+   SYSCALL(mprotect)
+   Next,open file called user.h and add following line. This is function that user program will be calling.
+   As you know now, there’s no such function implemented in system.
+   Instead, call to below function from user program will be simply mapped to system call number 22
+   which is defined as SYS_mprotect preprocessor directive. The system knows what exactly is this system call and how to handle it.
+   int mprotect(void);
+   If you have completed all above procedure, you have successfully added new system call to xv6
+   owever, in order to test functionality of this, you would need
+   to add user program(protection_test.c )which calls this system call.
+   In order to add this user program to xv6, you need to follow above steps for
+   adding user program. At last, run user program in qemu window which can be
+   obtained by running command make qemu on terminal.
+   After executing everything successfully, you will get on terminal.output shows in terminal emulator
+   
+   
 
 The code in the files that constitute xv6 is
 Copyright 2006-2018 Frans Kaashoek, Robert Morris, and Russ Cox.
